@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/desktopscreen.dart';
+import 'package:layout_practice/mobilescreen.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -10,14 +12,15 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
-    final currentWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor:
-          currentWidth < 600
-              ? Colors.green
-              : const Color.fromARGB(255, 85, 29, 95),
-      appBar: AppBar(title: Text('Homepage')),
-      body: Center(child: Text('Current Width: $currentWidth')),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 650) {
+          return MobileScreen();
+        } else {
+          // Return a default widget for larger screens
+          return DesktopScreen();
+        }
+      },
     );
   }
 }
